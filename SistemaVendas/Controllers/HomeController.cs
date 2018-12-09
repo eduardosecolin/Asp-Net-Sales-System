@@ -5,10 +5,19 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using SistemaVendas.Models;
+using SistemaVendas.Entities;
 
 namespace SistemaVendas.Controllers {
     public class HomeController : Controller {
         public IActionResult Index() {
+
+            SYSTEM_SALES_DBContext conn = new SYSTEM_SALES_DBContext();
+            Vendedores vendedores = new Vendedores();
+            vendedores.Nome = "Eduardo";
+            vendedores.Email = "eduardo@email.com";
+            vendedores.Senha = "1108";
+            conn.Vendedores.Add(vendedores);
+            conn.SaveChanges();
             return View();
         }
 
