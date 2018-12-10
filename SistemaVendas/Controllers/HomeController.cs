@@ -9,15 +9,26 @@ using SistemaVendas.Entities;
 
 namespace SistemaVendas.Controllers {
     public class HomeController : Controller {
+
+        [HttpGet]
+        public IActionResult Login() {
+
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult Login(LoginModel login) {
+
+            if (ModelState.IsValid) {
+
+                bool loginOk = login.ValidarLogin();
+            }
+
+            return View();
+        }
+
         public IActionResult Index() {
 
-            SYSTEM_SALES_DBContext conn = new SYSTEM_SALES_DBContext();
-            Vendedores vendedores = new Vendedores();
-            vendedores.Nome = "Eduardo";
-            vendedores.Email = "eduardo@email.com";
-            vendedores.Senha = "1108";
-            conn.Vendedores.Add(vendedores);
-            conn.SaveChanges();
             return View();
         }
 
