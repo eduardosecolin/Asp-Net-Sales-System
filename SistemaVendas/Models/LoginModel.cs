@@ -8,6 +8,9 @@ using SistemaVendas.Entities;
 namespace SistemaVendas.Models {
     public class LoginModel {
 
+        public int Id { get; set; }
+        public string Nome { get; set; }
+
         [DataType(DataType.EmailAddress)]
         [Required(ErrorMessage ="Informe o e-mail")]
         [EmailAddress(ErrorMessage ="O e-mail informado é inválido!")]
@@ -26,9 +29,12 @@ namespace SistemaVendas.Models {
 
         // validar o ligin
         public bool ValidarLogin(){
-            var sql = GetConnection().Vendedores.Select(x => x.Email == Email && x.Senha == Senha);
+            //var sql = GetConnection().Vendedores.Select(x => x.Email == Email && x.Senha == Senha);
+            Vendedores v = GetConnection().Vendedores.Where(x => x.Email == Email && x.Senha == Senha).FirstOrDefault();
 
-            if(sql.FirstOrDefault()){
+            if (v != null){
+                Id = v.Id;
+                Nome = v.Nome;
                 return true;
             }else{
                 return false;
