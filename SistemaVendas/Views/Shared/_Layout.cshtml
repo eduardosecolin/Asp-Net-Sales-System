@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-	<title>@ViewData["Title"] - SistemaVendas</title>
+	<title>@ViewData["Title"] - Sistema de Gestão de Vendas</title>
 
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 
@@ -33,9 +33,9 @@
 			<div class="navbar-collapse collapse">
 				<ul class="nav navbar-nav">
 					<li><a asp-area="" asp-controller="Home" asp-action="Index">Página Principal</a></li>
-					<li><a asp-area="" asp-controller="Home" asp-action="About">Sobre</a></li>
+					@*<li><a asp-area="" asp-controller="Home" asp-action="About">Sobre</a></li>
 					<li><a asp-area="" asp-controller="Home" asp-action="Contact">Contato</a></li>
-					<li><a asp-area="" asp-controller="Home" asp-action="Login">Login</a></li>
+					<li><a asp-area="" asp-controller="Home" asp-action="Login">Login</a></li>*@
 				</ul>
 				@using Microsoft.AspNetCore.Http;
 				@inject IHttpContextAccessor HttpContextAccessor				
@@ -47,7 +47,7 @@
 		@RenderBody()
 		<hr />
 		<footer>
-			<p>&copy; 2018 - SistemaVendas</p>
+			<p>&copy; 2018 - NomeDaEmpresa</p>
 		</footer>
 	</div>
 
