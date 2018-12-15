@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 
-namespace SistemaVendas.Entities
+namespace SistemaVendas.Models
 {
     public partial class SYSTEM_SALES_DBContext : DbContext
     {
@@ -16,10 +16,12 @@ namespace SistemaVendas.Entities
         }
 
         public virtual DbSet<Clientes> Clientes { get; set; }
+        public virtual DbSet<Estados> Estados { get; set; }
         public virtual DbSet<Produtos> Produtos { get; set; }
         public virtual DbSet<Vendas> Vendas { get; set; }
         public virtual DbSet<VendasDetalhes> VendasDetalhes { get; set; }
         public virtual DbSet<Vendedores> Vendedores { get; set; }
+        public virtual DbSet<TipoCliente> TipoClientes { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -30,12 +32,10 @@ namespace SistemaVendas.Entities
             }
         }
 
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {
+        protected override void OnModelCreating(ModelBuilder modelBuilder) {
             modelBuilder.HasAnnotation("ProductVersion", "2.2.0-rtm-35687");
 
-            modelBuilder.Entity<Clientes>(entity =>
-            {
+            modelBuilder.Entity<Clientes>(entity => {
                 entity.ToTable("CLIENTES");
 
                 entity.Property(e => e.Id).HasColumnName("id");
@@ -76,12 +76,6 @@ namespace SistemaVendas.Entities
                     .HasMaxLength(50)
                     .IsUnicode(false);
 
-                entity.Property(e => e.Estado)
-                    .IsRequired()
-                    .HasColumnName("estado")
-                    .HasMaxLength(2)
-                    .IsUnicode(false);
-
                 entity.Property(e => e.Nome)
                     .IsRequired()
                     .HasColumnName("nome")
@@ -102,15 +96,14 @@ namespace SistemaVendas.Entities
                     .HasMaxLength(20)
                     .IsUnicode(false);
 
-                entity.Property(e => e.Tipo)
-                    .IsRequired()
-                    .HasColumnName("tipo")
-                    .HasMaxLength(20)
-                    .IsUnicode(false);
+                entity.Property(e => e.Senha)
+                .IsRequired()
+                .HasColumnName("senha")
+                .HasMaxLength(15)
+                .IsUnicode(false);
             });
 
-            modelBuilder.Entity<Produtos>(entity =>
-            {
+            modelBuilder.Entity<Produtos>(entity => {
                 entity.ToTable("PRODUTOS");
 
                 entity.Property(e => e.Id).HasColumnName("id");
@@ -147,8 +140,7 @@ namespace SistemaVendas.Entities
                     .HasColumnType("decimal(9, 2)");
             });
 
-            modelBuilder.Entity<Vendas>(entity =>
-            {
+            modelBuilder.Entity<Vendas>(entity => {
                 entity.ToTable("VENDAS");
 
                 entity.Property(e => e.Id).HasColumnName("id");
@@ -178,8 +170,7 @@ namespace SistemaVendas.Entities
                     .HasConstraintName("FK_VENDEDORES");
             });
 
-            modelBuilder.Entity<VendasDetalhes>(entity =>
-            {
+            modelBuilder.Entity<VendasDetalhes>(entity => {
                 entity.HasKey(e => new { e.VendaId, e.ProdutoId })
                     .HasName("PK_VENDAS")
                     .ForSqlServerIsClustered(false);
@@ -199,8 +190,7 @@ namespace SistemaVendas.Entities
                     .HasColumnType("decimal(9, 2)");
             });
 
-            modelBuilder.Entity<Vendedores>(entity =>
-            {
+            modelBuilder.Entity<Vendedores>(entity => {
                 entity.ToTable("VENDEDORES");
 
                 entity.Property(e => e.Id).HasColumnName("id");
@@ -220,6 +210,30 @@ namespace SistemaVendas.Entities
                 entity.Property(e => e.Senha)
                     .HasColumnName("senha")
                     .HasMaxLength(15)
+                    .IsUnicode(false);
+
+
+            });
+
+            modelBuilder.Entity<Estados>(entity => {
+                entity.ToTable("ESTADOS");
+
+
+                entity.Property(e => e.Sigla)
+                    .IsRequired()
+                    .HasColumnName("Sigla")
+                    .HasMaxLength(2)
+                    .IsUnicode(false);
+            });
+
+            modelBuilder.Entity<TipoCliente>(entity => {
+                entity.ToTable("TIPO_CLIENTES");
+
+
+                entity.Property(e => e.Tipo)
+                    .IsRequired()
+                    .HasColumnName("Tipo")
+                    .HasMaxLength(20)
                     .IsUnicode(false);
             });
         }

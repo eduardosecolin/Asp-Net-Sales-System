@@ -1,0 +1,79 @@
+﻿@model SistemaVendas.Models.ViewModels.ClienteFormViewModel
+
+@{
+    ViewData["Title"] = "Cadastro de Clientes";
+}
+
+<h2>Cadastro de Clientes</h2>
+<br />
+<div class="row">
+	<div class="col-md-4">
+		<form asp-controller="Cliente" asp-action="Cadastro">
+			<div class="form-group">
+				<label>Nome</label>
+				<input asp-for="cliente.Nome" type="text" class="form-control" />
+				<span asp-validation-for="cliente.Nome" class="text-danger"></span>
+			</div>
+			<div class="form-group">
+				<label>CPF/CNPJ</label>
+				<input asp-for="cliente.CpfCnpj" type="text" class="form-control" />
+				<span asp-validation-for="cliente.CpfCnpj" class="text-danger"></span>
+			</div>
+			<div class="form-group">
+				<label>E-mail</label>
+				<input asp-for="cliente.Email" type="text" class="form-control" />
+				<span asp-validation-for="cliente.Email" class="text-danger"></span>
+			</div>
+			<div class="form-group">
+				<label>Endereço</label>
+				<input asp-for="cliente.Endereco" type="text" class="form-control" />
+				<span asp-validation-for="cliente.Endereco" class="text-danger"></span>
+			</div>
+			<div class="form-group">
+				<label>Número</label>
+				<input asp-for="cliente.Numero" type="text" class="form-control" />
+				<span asp-validation-for="cliente.Numero" class="text-danger"></span>
+			</div>
+			<div class="form-group">
+				<label>Bairro</label>
+				<input asp-for="cliente.Bairro" type="text" class="form-control" />
+				<span asp-validation-for="cliente.Bairro" class="text-danger"></span>
+			</div>
+			<div class="form-group">
+				<label>Cidade</label>
+				<input asp-for="cliente.Cidade" type="text" class="form-control" />
+				<span asp-validation-for="cliente.Cidade" class="text-danger"></span>
+			</div>
+			<div class="form-group">
+				<label>Estado</label>
+				<select asp-for="cliente.EstadosId" asp-items="@(new SelectList(Model.estados ,"id", "Sigla"))" class="form-control"></select>
+				<span asp-validation-for="cliente.EstadosId" class="text-danger"></span>
+			</div>
+			<div class="form-group">
+				<label>País</label>
+				<input asp-for="cliente.Pais" type="text" class="form-control" />
+				<span asp-validation-for="cliente.Pais" class="text-danger"></span>
+			</div>
+			<div class="form-group">
+				<label>Telefone</label>
+				<input asp-for="cliente.Telefone" type="text" class="form-control" />
+				<span asp-validation-for="cliente.Telefone" class="text-danger"></span>
+			</div>
+			<div class="form-group">
+				<label>Celular</label>
+				<input asp-for="cliente.Celular" type="text" class="form-control" />
+				<span asp-validation-for="cliente.Celular" class="text-danger"></span>
+			</div>
+			<div class="form-group">
+				<label>Tipo</label>
+				<select asp-for="cliente.TipoClienteId" asp-items="@(new SelectList(Model.tipo ,"Id", "Tipo"))" class="form-control"></select>
+				<span asp-validation-for="cliente.TipoClienteId" class="text-danger"></span>
+			</div>
+
+			<button type="submit" class=" btn btn-block btn-success">Cadastrar</button>
+		</form>
+	</div>
+</div>
+
+
+

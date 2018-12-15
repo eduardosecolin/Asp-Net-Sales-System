@@ -1,0 +1,94 @@
+﻿
+@{
+	ViewData["Title"] = "Detalhes";
+}
+@model SistemaVendas.Models.Clientes
+
+<h2>Detalhes/Clientes</h2>
+
+<div class="row">
+	<div class="col-md-4">
+		<div>
+			<hr />
+			<dl class="dl-horizontal">
+				<dt>
+					Nome
+				</dt>
+				<dd>
+					@Html.DisplayFor(model => model.Nome)
+				</dd>
+				<dt>
+					CPF/CNPJ
+				</dt>
+				<dd>
+					@Html.DisplayFor(model => model.CpfCnpj)
+				</dd>
+				<dt>
+					E-mail
+				</dt>
+				<dd>
+					@Html.DisplayFor(model => model.Email)
+				</dd>
+				<dt>
+					Endereço
+				</dt>
+				<dd>
+					@Html.DisplayFor(model => model.Endereco)
+				</dd>
+				<dt>
+					Número
+				</dt>
+				<dd>
+					@Html.DisplayFor(model => model.Numero)
+				</dd>
+				<dt>
+					Bairro
+				</dt>
+				<dd>
+					@Html.DisplayFor(model => model.Bairro)
+				</dd>
+				<dt>
+					Cidade
+				</dt>
+				<dd>
+					@Html.DisplayFor(model => model.Cidade)
+				</dd>
+				<dt>
+					Estado
+				</dt>
+				<dd>
+					@Html.DisplayFor(model => model.Estado.Sigla)
+				</dd>
+				<dt>
+					País
+				</dt>
+				<dd>
+					@Html.DisplayFor(model => model.Pais)
+				</dd>
+				<dt>
+					Telefone
+				</dt>
+				<dd>
+					@Html.DisplayFor(model => model.Telefone)
+				</dd>
+				<dt>
+					Celular
+				</dt>
+				<dd>
+					@Html.DisplayFor(model => model.Celular)
+				</dd>
+				<dt>
+					Tipo
+				</dt>
+				<dd>
+					@Html.DisplayFor(model => model.Tipo.Tipo)
+				</dd>
+			</dl>
+		</div>
+	</div>
+	</div>
+	<div>
+		<a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-default">Editar</a>
+		<a asp-action="Index">Voltar</a>
+	</div>
+

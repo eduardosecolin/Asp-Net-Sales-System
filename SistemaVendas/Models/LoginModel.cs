@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
-using SistemaVendas.Entities;
 
 namespace SistemaVendas.Models {
     public class LoginModel {
@@ -21,22 +20,23 @@ namespace SistemaVendas.Models {
 
         #region Metodos
 
-        // pegar a conexão
-        private SYSTEM_SALES_DBContext GetConnection(){
+        //pegar a conexão
+        private SYSTEM_SALES_DBContext GetConnection() {
             SYSTEM_SALES_DBContext conn = new SYSTEM_SALES_DBContext();
             return conn;
         }
 
-        // validar o ligin
-        public bool ValidarLogin(){
+        //validar o ligin
+        public bool ValidarLogin() {
             //var sql = GetConnection().Vendedores.Select(x => x.Email == Email && x.Senha == Senha);
             Vendedores v = GetConnection().Vendedores.Where(x => x.Email == Email && x.Senha == Senha).FirstOrDefault();
 
-            if (v != null){
+            if (v != null) {
                 Id = v.Id;
                 Nome = v.Nome;
                 return true;
-            }else{
+            }
+            else {
                 return false;
             }
 

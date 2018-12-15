@@ -5,7 +5,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using SistemaVendas.Models;
-using SistemaVendas.Entities;
 using Microsoft.AspNetCore.Http;
 
 namespace SistemaVendas.Controllers {
