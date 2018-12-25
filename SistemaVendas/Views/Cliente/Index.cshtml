@@ -33,9 +33,9 @@
 				@Html.DisplayFor(modelItem => item.Celular)
 			</td>
 			<td>
-				<a asp-action="Edit" asp-route-id="@item.Id">Editar </a> |
-				<a asp-action="Detalhes" asp-route-id="@item.Id">Detalhes</a> |
-				<a asp-action="Delete" asp-route-id="@item.Id">Deletar</a>
+				<button type="button" class="btn btn-warning" onclick="Editar(@item.Id)">Editar</button>
+				<button type="button" class="btn btn-info" onclick="Detalhes(@item.Id)">Detalhes</button>
+				<button type="button" class="btn btn-danger" onclick="Excluir(@item.Id)">Excluir</button>
 			</td>
 		</tr>
 			}
@@ -48,6 +48,15 @@
 <script>
 	function Cadastrar() {
 		window.location.href = "../Cliente/Cadastro";
+	}
+	function Editar(id) {
+		window.location.href = "../Cliente/Editar/" + id;
+	}
+	function Detalhes(id) {
+		window.location.href = "../Cliente/Detalhes/" + id;
+	}
+	function Excluir(id) {
+		window.location.href = "../Cliente/Excluir/" + id;
 	}
 </script>
 

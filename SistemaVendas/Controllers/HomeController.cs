@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using SistemaVendas.Models;
 using Microsoft.AspNetCore.Http;
+using SistemaVendas.Models.ViewModels;
 
 namespace SistemaVendas.Controllers {
     public class HomeController : Controller {
