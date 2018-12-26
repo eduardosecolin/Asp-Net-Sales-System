@@ -7,14 +7,25 @@ namespace SistemaVendas.Models
 {   
     public partial class Clientes
     {
+        #region Global Referencias
+
         SYSTEM_SALES_DBContext conexao = new SYSTEM_SALES_DBContext();
-       
+
+        #endregion
+
+        #region Construtor
+
         public Clientes()
         {
             Vendas = new HashSet<Vendas>();
         }
 
+        #endregion
+
+        #region Atributos
+
         public int Id { get; set; }
+
         [Required(ErrorMessage ="Informe o nome")]
         public string Nome { get; set; }
 
@@ -40,7 +51,10 @@ namespace SistemaVendas.Models
         public Estados Estado { get; set; }
         public int EstadosId { get; set; }
         public string Pais { get; set; }
+
+        [DataType(DataType.PhoneNumber)]
         public string Telefone { get; set; }
+
         public string Celular { get; set; }
         public TipoCliente Tipo { get; set; }
         public int TipoClienteId { get; set; }
@@ -50,12 +64,16 @@ namespace SistemaVendas.Models
 
         public virtual ICollection<Vendas> Vendas { get; set; }
 
+        #endregion
+
+        #region Metodos
 
         public void Inserir(Clientes clientes){
             clientes.Senha = "1234";
             conexao.Clientes.Add(clientes);
             conexao.SaveChanges();
         }
-
+    
+        #endregion
     }
 }

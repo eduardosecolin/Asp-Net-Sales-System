@@ -9,54 +9,54 @@
 
 <table class="table table-striped table-hover">
 	<thead>
-		<tr class="success">
-			<th>@Html.DisplayNameFor(model => model.Nome)</th>
-			<th>@Html.DisplayNameFor(model => model.CpfCnpj)</th>
-			<th>@Html.DisplayNameFor(model => model.Email)</th>
-			<th>@Html.DisplayNameFor(model => model.Celular)</th>
-		</tr>
+        <tr class="success">
+            <th>@Html.DisplayNameFor(model => model.Nome)</th>
+            <th>@Html.DisplayNameFor(model => model.CpfCnpj)</th>
+            <th>@Html.DisplayNameFor(model => model.Email)</th>
+            <th>@Html.DisplayNameFor(model => model.Celular)</th>
+        </tr>
 	</thead>
-	<tbody>
-		@{
-			foreach (var item in (List<Clientes>)ViewBag.ListaClientes) {
-		<tr>
-			<td>
-				@Html.DisplayFor(modelItem => item.Nome)
-			</td>
-			<td>
-				@Html.DisplayFor(modelItem => item.CpfCnpj)
-			</td>
-			<td>
-				@Html.DisplayFor(modelItem => item.Email)
-			</td>
-			<td>
-				@Html.DisplayFor(modelItem => item.Celular)
-			</td>
-			<td>
-				<button type="button" class="btn btn-warning" onclick="Editar(@item.Id)">Editar</button>
-				<button type="button" class="btn btn-info" onclick="Detalhes(@item.Id)">Detalhes</button>
-				<button type="button" class="btn btn-danger" onclick="Excluir(@item.Id)">Excluir</button>
-			</td>
-		</tr>
-			}
-		}
-	</tbody>
+    <tbody>
+        @{
+            foreach (var item in (List<Clientes>)ViewBag.ListaClientes) {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Nome)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CpfCnpj)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Email)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Celular)
+                    </td>
+                    <td>
+                        <button type="button" class="btn btn-warning" onclick="Editar(@item.Id)">Editar</button>
+                        <button type="button" class="btn btn-info" onclick="Detalhes(@item.Id)">Detalhes</button>
+                        <button type="button" class="btn btn-danger" onclick="Excluir(@item.Id)">Excluir</button>
+                    </td>
+                </tr>
+            }
+        }
+    </tbody>
 </table>
 <br />
 <button class="btn btn-block btn-primary" type="button" onclick="Cadastrar()">Cadastrar Cliente</button>
 
 <script>
-	function Cadastrar() {
-		window.location.href = "../Cliente/Cadastro";
-	}
-	function Editar(id) {
-		window.location.href = "../Cliente/Editar/" + id;
-	}
-	function Detalhes(id) {
-		window.location.href = "../Cliente/Detalhes/" + id;
-	}
-	function Excluir(id) {
-		window.location.href = "../Cliente/Excluir/" + id;
-	}
+    function Cadastrar() {
+        window.location.href = "../Cliente/Cadastro";
+    }
+    function Editar(id) {
+        window.location.href = "../Cliente/Editar/" + id;
+    }
+    function Detalhes(id) {
+        window.location.href = "../Cliente/Detalhes/" + id;
+    }
+    function Excluir(id) {
+        window.location.href = "../Cliente/Excluir/" + id;
+    }
 </script>
 

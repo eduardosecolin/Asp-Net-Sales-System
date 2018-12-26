@@ -32,6 +32,7 @@ namespace SistemaVendas {
             services.AddScoped<EstadosService>();
             services.AddScoped<TipoClienteService>();
             services.AddScoped<ClienteService>();
+            services.AddScoped<VendedorService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
