@@ -8,7 +8,7 @@
 
 <br />
 <div class="row">
-	<div class="col-md-4">
+    <div class="col-md-4">
         <form asp-controller="Produto" asp-action="Editar">
 
             <input type="hidden" asp-for="produto.Id" />
@@ -21,13 +21,13 @@
             <div class="form-group">
                 <label>Descrição</label>
                 @*@{
-                var vDescricao = string.Empty;
-                try {
-                    vDescricao = ViewBag.Produtos.Descicao;
+                    var vDescricao = string.Empty;
+                    try {
+                        vDescricao = ViewBag.Produtos.Descicao;
+                    }
+                    catch { }
                 }
-                catch { }
-            }
-            @Html.TextArea("Descricao", vDescricao, new { @class = "form-control" })*@
+                @Html.TextArea("Descricao", vDescricao, new { @class = "form-control" })*@
                 <input asp-for="produto.Descricao" type="text" class="form-control" />
                 <span asp-validation-for="produto.Descricao" class="text-danger"></span>
             </div>
@@ -53,8 +53,9 @@
             </div>
 
             <button type="submit" class=" btn btn-block btn-success">Salvar</button>
-            <a asp-action="Index">Voltar</a>
         </form>
-	</div>
+        <br />
+        <a asp-action="Index">Voltar</a>
+    </div>
 </div>
 

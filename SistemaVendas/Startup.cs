@@ -29,12 +29,13 @@ namespace SistemaVendas {
             services.AddDbContext<SYSTEM_SALES_DBContext>(options =>
                    options.UseSqlServer(Configuration.GetConnectionString("SYSTEM_SALES_DBContext")));
 
-            services.AddScoped<MedidaService>();
+            services.AddScoped<EstadoService>();
             services.AddScoped<TipoClienteService>();
             services.AddScoped<ClienteService>();
             services.AddScoped<VendedorService>();
             services.AddScoped<ProdutoService>();
             services.AddScoped<MedidaService>();
+            services.AddScoped<VendaService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -1,0 +1,102 @@
+﻿@model SistemaVendas.Models.ViewModels.VendaFormViewModel
+
+@{
+    ViewData["Title"] = "Registrar uma Venda";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<br />
+<div class="row">
+    <div class="col-md-5">
+        <form asp-controller="Vendedor" asp-action="Cadastro">
+
+            <div class="form-group">
+                <label>Cliente</label>
+                <select asp-for="venda.ClientesId" class="form-control" asp-items="@(new SelectList(Model.clientes, "Id", "Nome"))"></select>
+                <span asp-validation-for="venda.ClientesId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label>Vendedor</label>
+                <select asp-for="venda.VendedoresId" class="form-control" asp-items="@(new SelectList(Model.vendedores, "Id", "Nome"))"></select>
+                <span asp-validation-for="venda.VendedoresId" class="text-danger"></span>
+            </div>
+            <label>Produtos</label>
+            <div class="form-group">
+                <div class="col-lg-6">
+                    <select class="form-control" id="ComboProdutos">
+                        @{
+                            foreach (var item in (List<Produtos>)ViewBag.ListaProdutos) {
+                                <option value="@item.Id">@item.Nome | @item.VlUnitario</option>
+                            }
+                        }
+                    </select>
+                </div>
+                <div class="col-lg-2">
+                    <input type="text" class="form-control" value="1" id="txtQtd" />
+                </div>
+                <div class="col-lg-4">
+                    <button type="button" class="btn btn-primary" onclick="AdicionarProduto()">Adicionar</button>
+                </div>
+            </div>
+            <br /><br />
+            <div class="form-group">
+                <label>Data</label>
+                <input asp-for="venda.Data" type="text" class="form-control" />
+                <span asp-validation-for="venda.Data" class="text-danger"></span>
+            </div>
+            <br /><br />
+
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <td>Nome</td>
+                        <td>Quantidade</td>
+                        <td>Valor Unitário</td>
+                        <td>Total</td>
+                    </tr>
+                </thead>
+                <tbody id="ListaProdutos"></tbody>
+            </table> 
+
+            <button type="submit" class=" btn btn-block btn-success">Cadastrar</button>
+        </form>
+        <br />
+        <a asp-action="Index">Voltar</a>
+    </div>
+</div>
+
+
+<script>
+    var Itens = new Object();
+    Itens.Produtos = new Array();
+
+    var CodigoProduto = document.getElementById("ComboProdutos");
+    var QtdProduto = document.getElementById("txtQtd");
+    var ListaProdutos = document.getElementById("ListaProdutos");
+
+    function AdicionarProduto() {
+
+        var Desc = CodigoProduto.options[CodigoProduto.selectedIndex].text;
+        var arrayDescVL = Desc.split('|');
+        var total = (arrayDescVL[1].replace(",", ".") * QtdProduto.value)
+        total = Math.round(total * 100) / 100;
+
+        Itens.Produtos.push({
+            "DescricaoProduto": arrayDescVL[0],
+            "QtdProduto": QtdProduto.value,
+            "ValorUnitario": arrayDescVL[1],
+            "Total": "0"
+        });
+
+        var produto = "<tr>" +
+            "<td>" + arrayDescVL[0] + "</td>" +
+            "<td>" + QtdProduto.value + "</td>" +
+            "<td>" + arrayDescVL[1] + "</td>" +
+            "<td>" + total + "</td>" +
+            "</tr>";
+        ListaProdutos.innerHTML += produto;
+      
+    }
+</script>
+
