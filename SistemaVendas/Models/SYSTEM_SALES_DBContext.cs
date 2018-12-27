@@ -22,6 +22,7 @@ namespace SistemaVendas.Models
         public virtual DbSet<VendasDetalhes> VendasDetalhes { get; set; }
         public virtual DbSet<Vendedores> Vendedores { get; set; }
         public virtual DbSet<TipoCliente> TipoClientes { get; set; }
+        public virtual DbSet<Medidas> Medidas { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -130,12 +131,6 @@ namespace SistemaVendas.Models
                     .HasColumnName("quantidade")
                     .HasColumnType("decimal(9, 2)");
 
-                entity.Property(e => e.UnidadeMedida)
-                    .IsRequired()
-                    .HasColumnName("unidade_medida")
-                    .HasMaxLength(3)
-                    .IsUnicode(false);
-
                 entity.Property(e => e.VlUnitario)
                     .HasColumnName("vl_unitario")
                     .HasColumnType("decimal(9, 2)");
@@ -235,6 +230,17 @@ namespace SistemaVendas.Models
                     .IsRequired()
                     .HasColumnName("Tipo")
                     .HasMaxLength(20)
+                    .IsUnicode(false);
+            });
+
+            modelBuilder.Entity<Medidas>(entity => {
+                entity.ToTable("MEDIDAS");
+
+
+                entity.Property(e => e.medida)
+                    .IsRequired()
+                    .HasColumnName("medida")
+                    .HasMaxLength(2)
                     .IsUnicode(false);
             });
         }

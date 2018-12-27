@@ -1,4 +1,4 @@
-﻿@model SistemaVendas.Models.Produtos
+﻿@model SistemaVendas.Models.ViewModels.ProdutoFormViewModel
 
 @{
 	ViewData["Title"] = "Editar";
@@ -11,41 +11,45 @@
 	<div class="col-md-4">
         <form asp-controller="Produto" asp-action="Editar">
 
-            <input type="hidden" asp-for="Id" />
-            <input type="hidden" asp-for="UnidadeMedida" />
+            <input type="hidden" asp-for="produto.Id" />
 
             <div class="form-group">
                 <label>Nome</label>
-                <input asp-for="Nome" type="text" class="form-control" />
-                <span asp-validation-for="Nome" class="text-danger"></span>
+                <input asp-for="produto.Nome" type="text" class="form-control" />
+                <span asp-validation-for="produto.Nome" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label>Descrição</label>
                 @*@{
-                    var vDescricao = string.Empty;
-                    try {
-                        vDescricao = ViewBag.Produtos.Descicao;
-                    }
-                    catch { }
+                var vDescricao = string.Empty;
+                try {
+                    vDescricao = ViewBag.Produtos.Descicao;
                 }
-                @Html.TextArea("Descricao", vDescricao, new { @class = "form-control" })*@
-                <input asp-for="Descricao" type="text" class="form-control" />
-                <span asp-validation-for="Descricao" class="text-danger"></span>
+                catch { }
+            }
+            @Html.TextArea("Descricao", vDescricao, new { @class = "form-control" })*@
+                <input asp-for="produto.Descricao" type="text" class="form-control" />
+                <span asp-validation-for="produto.Descricao" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label>Valor Unitário</label>
-                <input asp-for="VlUnitario" type="text" class="form-control" />
-                <span asp-validation-for="VlUnitario" class="text-danger"></span>
+                <input asp-for="produto.VlUnitario" type="text" class="form-control" />
+                <span asp-validation-for="produto.VlUnitario" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label>Quantidade</label>
-                <input asp-for="Quantidade" type="text" class="form-control" />
-                <span asp-validation-for="Quantidade" class="text-danger"></span>
+                <input asp-for="produto.Quantidade" type="text" class="form-control" />
+                <span asp-validation-for="produto.Quantidade" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label>Unidade de Medida</label>
+                <select asp-for="produto.MedidasId" asp-items="@(new SelectList(Model.medidas ,"id", "medida"))" class="form-control"></select>
+                <span asp-validation-for="produto.MedidasId" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label>Link Foto</label>
-                <input asp-for="LinkFoto" type="text" class="form-control" />
-                <span asp-validation-for="LinkFoto" class="text-danger"></span>
+                <input asp-for="produto.LinkFoto" type="text" class="form-control" />
+                <span asp-validation-for="produto.LinkFoto" class="text-danger"></span>
             </div>
 
             <button type="submit" class=" btn btn-block btn-success">Salvar</button>

@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SistemaVendas.Models;
 
 namespace SistemaVendas.Migrations
 {
     [DbContext(typeof(SYSTEM_SALES_DBContext))]
-    partial class SYSTEM_SALES_DBContextModelSnapshot : ModelSnapshot
+    [Migration("20181227115033_UoM2")]
+    partial class UoM2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

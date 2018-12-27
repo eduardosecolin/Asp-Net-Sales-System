@@ -14,7 +14,7 @@ namespace SistemaVendas.Controllers {
         #region Atributos
 
         SYSTEM_SALES_DBContext conexao = new SYSTEM_SALES_DBContext();
-        private readonly EstadosService _estadoService;
+        private readonly EstadoService _estadoService;
         private readonly TipoClienteService _tipoClienteService;
         private readonly ClienteService _clienteService;
 
@@ -22,7 +22,7 @@ namespace SistemaVendas.Controllers {
 
         #region Construtor
 
-        public ClienteController(EstadosService estadosService, TipoClienteService tipoClienteService, ClienteService clienteService) {
+        public ClienteController(EstadoService estadosService, TipoClienteService tipoClienteService, ClienteService clienteService) {
             _estadoService = estadosService;
             _tipoClienteService = tipoClienteService;
             _clienteService = clienteService;

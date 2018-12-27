@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using SistemaVendas.Models;
 using SistemaVendas.Servicos;
+using SistemaVendas.Models.ViewModels;
 
 namespace SistemaVendas.Controllers
 {
@@ -15,13 +16,15 @@ namespace SistemaVendas.Controllers
 
         readonly SYSTEM_SALES_DBContext conexao = new SYSTEM_SALES_DBContext();
         private readonly ProdutoService _produtoService;
+        private readonly MedidaService _medidaService;
 
         #endregion
 
         #region Construtor
 
-        public ProdutoController(ProdutoService produtoService) {
+        public ProdutoController(ProdutoService produtoService, MedidaService medidaService) {
             _produtoService = produtoService;
+            _medidaService = medidaService;
         }
 
         #endregion
@@ -39,8 +42,10 @@ namespace SistemaVendas.Controllers
 
         [HttpGet]
         public IActionResult Cadastro() {
+            var medidas = _medidaService.FindAll();
+            var viewModel = new ProdutoFormViewModel { medidas = medidas};
 
-            return View();
+            return View(viewModel);
         }
 
         [HttpPost]
@@ -89,7 +94,9 @@ namespace SistemaVendas.Controllers
                 return RedirectToAction(nameof(Error), new { message = "Id não encontrado!" });
             }
 
-            return View(obj);
+            List<Medidas> medida = _medidaService.FindAll();
+            ProdutoFormViewModel viewModel = new ProdutoFormViewModel { produto = obj, medidas = medida };
+            return View(viewModel);
         }
 
 

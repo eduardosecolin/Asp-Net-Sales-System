@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SistemaVendas.Models;
 
 namespace SistemaVendas.Migrations
 {
     [DbContext(typeof(SYSTEM_SALES_DBContext))]
-    partial class SYSTEM_SALES_DBContextModelSnapshot : ModelSnapshot
+    [Migration("20181227112747_UoM")]
+    partial class UoM
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -154,8 +156,6 @@ namespace SistemaVendas.Migrations
                         .HasMaxLength(255)
                         .IsUnicode(false);
 
-                    b.Property<int>("MedidasId");
-
                     b.Property<string>("Nome")
                         .IsRequired()
                         .HasColumnName("nome")
@@ -167,14 +167,18 @@ namespace SistemaVendas.Migrations
                         .HasColumnName("quantidade")
                         .HasColumnType("decimal(9, 2)");
 
+                    b.Property<string>("UnidadeMedida")
+                        .IsRequired()
+                        .HasColumnName("unidade_medida")
+                        .HasMaxLength(3)
+                        .IsUnicode(false);
+
                     b.Property<decimal?>("VlUnitario")
                         .IsRequired()
                         .HasColumnName("vl_unitario")
                         .HasColumnType("decimal(9, 2)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("MedidasId");
 
                     b.ToTable("PRODUTOS");
                 });
@@ -288,14 +292,6 @@ namespace SistemaVendas.Migrations
                     b.HasOne("SistemaVendas.Models.TipoCliente", "Tipo")
                         .WithMany()
                         .HasForeignKey("TipoClienteId")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("SistemaVendas.Models.Produtos", b =>
-                {
-                    b.HasOne("SistemaVendas.Models.Medidas", "UnidadeMedida")
-                        .WithMany()
-                        .HasForeignKey("MedidasId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 

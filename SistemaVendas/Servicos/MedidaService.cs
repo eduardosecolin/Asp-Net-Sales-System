@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using SistemaVendas.Models;
 
 namespace SistemaVendas.Servicos {
-    public class TipoClienteService {
+    public class MedidaService {
 
         #region Atributos
 
@@ -15,7 +15,7 @@ namespace SistemaVendas.Servicos {
 
         #region Construtor
 
-        public TipoClienteService(SYSTEM_SALES_DBContext con) {
+        public MedidaService(SYSTEM_SALES_DBContext con){
             conexao = con;
         }
 
@@ -23,9 +23,9 @@ namespace SistemaVendas.Servicos {
 
         #region Metodos
 
-        // Listar todos os registros
-        public List<TipoCliente> FindAll() {
-            return conexao.TipoClientes.ToList();
+        //Listar todos os registros
+        public List<Medidas> FindAll() {
+            return conexao.Medidas.ToList();
         }
 
         #endregion

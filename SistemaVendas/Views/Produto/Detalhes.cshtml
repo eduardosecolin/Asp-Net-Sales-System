@@ -7,7 +7,7 @@
 <h2>Detalhes/Clientes</h2>
 
 <div class="row">
-	<div class="col-md-4">
+	<div class="col-md-6">
 		<div>
 			<hr />
             <dl class="dl-horizontal">
@@ -34,6 +34,12 @@
                 </dt>
                 <dd>
                     @Html.DisplayFor(model => model.Quantidade)
+                </dd>
+                <dt>
+                    Unidade de Medida
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.UnidadeMedida.medida)
                 </dd>
                 <dt>
                     Foto

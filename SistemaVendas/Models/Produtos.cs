@@ -2,10 +2,8 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace SistemaVendas.Models
-{
-    public partial class Produtos
-    {
+namespace SistemaVendas.Models {
+    public partial class Produtos {
 
         #region Global Referencias
 
@@ -24,11 +22,13 @@ namespace SistemaVendas.Models
         public string Descricao { get; set; }
 
         [Required(ErrorMessage = "Informe o valor unitário")]
-        public decimal VlUnitario { get; set; }
+        public decimal? VlUnitario { get; set; }
 
-        public decimal Quantidade { get; set; }
+        [Required(ErrorMessage = "Informe o valor unitário")]
+        public decimal? Quantidade { get; set; }
 
-        public string UnidadeMedida { get; set; }
+        public Medidas UnidadeMedida { get; set; }
+        public int MedidasId { get; set; }
 
         public string LinkFoto { get; set; }
 
@@ -37,7 +37,6 @@ namespace SistemaVendas.Models
         #region Metodos
 
         public void Inserir(Produtos produto) {
-            produto.UnidadeMedida = "";
             conexao.Produtos.Add(produto);
             conexao.SaveChanges();
         }
