@@ -34,7 +34,8 @@ namespace SistemaVendas.Controllers
             if (ModelState.IsValid) {
 
                 venda.Inserir(venda);
-                return RedirectToAction("Index");
+                ViewBag.ListaProdutos = conexao.Produtos.ToList();
+                //return RedirectToAction("Index");
             }
 
             return View();

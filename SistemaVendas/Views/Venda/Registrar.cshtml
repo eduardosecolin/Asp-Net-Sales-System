@@ -9,7 +9,7 @@
 <br />
 <div class="row">
     <div class="col-md-5">
-        <form asp-controller="Vendedor" asp-action="Cadastro">
+        <form asp-controller="Venda" asp-action="Registrar">
 
             <div class="form-group">
                 <label>Cliente</label>
@@ -40,16 +40,11 @@
                 </div>
             </div>
             <br /><br />
-            <div class="form-group">
-                <label>Data</label>
-                <input asp-for="venda.Data" type="text" class="form-control" />
-                <span asp-validation-for="venda.Data" class="text-danger"></span>
-            </div>
-            <br /><br />
 
             <table class="table table-bordered">
                 <thead>
                     <tr>
+                        <td>Cod. Produto</td>
                         <td>Nome</td>
                         <td>Quantidade</td>
                         <td>Valor Unitário</td>
@@ -57,7 +52,16 @@
                     </tr>
                 </thead>
                 <tbody id="ListaProdutos"></tbody>
-            </table> 
+            </table>
+
+            <div style="float:left; font-size:22px;">Total R$</div>
+            <div style="float:left; font-size:22px; margin-left:5px"; id="DivTotal">0.00</div>
+
+            <input type="hidden" asp-for="venda.Total" id="txtTotalVenda" />
+
+            <br /><br />
+
+            <textarea style="display:inline;" asp-for="venda.ListaProdutosVenda" id="ListaProdutosVenda"></textarea>
 
             <button type="submit" class=" btn btn-block btn-success">Cadastrar</button>
         </form>
@@ -74,6 +78,9 @@
     var CodigoProduto = document.getElementById("ComboProdutos");
     var QtdProduto = document.getElementById("txtQtd");
     var ListaProdutos = document.getElementById("ListaProdutos");
+    var totalVenda = document.getElementById("DivTotal");
+    var ListaProdutosVenda = document.getElementById("ListaProdutosVenda");
+    var TotalDBvenda = document.getElementById("txtTotalVenda");
 
     function AdicionarProduto() {
 
@@ -83,19 +90,28 @@
         total = Math.round(total * 100) / 100;
 
         Itens.Produtos.push({
+            "CodigoProduto": CodigoProduto.value,
             "DescricaoProduto": arrayDescVL[0],
             "QtdProduto": QtdProduto.value,
             "ValorUnitario": arrayDescVL[1],
-            "Total": "0"
+            "Total": total
         });
 
+
+        ListaProdutosVenda.innerHTML = JSON.stringify(Itens.Produtos);
+
         var produto = "<tr>" +
+            "<td>" + CodigoProduto.value + "</td>" +
             "<td>" + arrayDescVL[0] + "</td>" +
             "<td>" + QtdProduto.value + "</td>" +
-            "<td>" + arrayDescVL[1] + "</td>" +
-            "<td>" + total + "</td>" +
+            "<td> R$" + arrayDescVL[1] + "</td>" +
+            "<td> R$ " + total + "</td>" +
             "</tr>";
+
         ListaProdutos.innerHTML += produto;
+        var totalGeral = Math.round((totalVenda.innerText * 1 + total) * 100) / 100;
+        totalVenda.innerHTML = totalGeral;
+        TotalDBvenda.value = totalGeral.toString().replace(".", ",");
       
     }
 </script>

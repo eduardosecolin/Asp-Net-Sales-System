@@ -5,7 +5,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using SistemaVendas.Servicos.Excecoes;
-
+using Newtonsoft.Json;
+using SistemaVendas.Models.ViewModels;
 
 namespace SistemaVendas.Servicos {
     public class VendaService {
@@ -66,6 +67,21 @@ namespace SistemaVendas.Servicos {
         // Listar vendedores
         public List<Vendedores> ListaVendedores() {
             return conexao.Vendedores.ToList();
+        }
+
+        // pegar id da venda
+        //public int GetIdVenda(Vendas venda) {
+        //    //var ID = $"SELECT id FROM VENDAS WHERE id = {venda.Id} AND Vendedores_id = {venda.VendedoresId} AND Clientes_id = {venda.ClientesId}");
+        //    //return ID;
+        //}
+
+        // Inserir
+        public void Inserir(Vendas venda) {
+            conexao.Database.ExecuteSqlCommand($"INSERT INTO VENDAS(data, total, Vendedores_id, Clientes_id) VALUES ({venda.Data}, {venda.Total}, {venda.VendedoresId}, {venda.ClientesId})");
+        }
+
+        public void Inserir(VendasDetalhes detalhes) {
+            conexao.Database.ExecuteSqlCommand($"INSERT INTO VENDAS_DETALHES(Venda_id, Produto_id, qtd_produtos, vl_produto) VALUES ({detalhes.VendaId}, {detalhes.ProdutoId}, {detalhes.QtdProdutos}, {detalhes.VlProduto})");
         }
 
         #endregion
