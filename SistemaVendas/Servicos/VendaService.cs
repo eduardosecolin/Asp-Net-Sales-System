@@ -77,7 +77,7 @@ namespace SistemaVendas.Servicos {
 
         // Inserir
         public void Inserir(Vendas venda) {
-            conexao.Database.ExecuteSqlCommand($"INSERT INTO VENDAS(data, total, Vendedores_id, Clientes_id) VALUES ({venda.Data}, {venda.Total}, {venda.VendedoresId}, {venda.ClientesId})");
+            conexao.Database.ExecuteSqlCommand($"INSERT INTO VENDAS(data, total, Vendedores_id, Clientes_id) VALUES ({DateTime.Parse(venda.Data.ToShortDateString())}, {venda.Total}, {venda.VendedoresId}, {venda.ClientesId})");
         }
 
         public void Inserir(VendasDetalhes detalhes) {

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Newtonsoft.Json;
 using SistemaVendas.Servicos;
+using SistemaVendas.Utils;
 
 namespace SistemaVendas.Models
 {
@@ -33,7 +34,7 @@ namespace SistemaVendas.Models
             venda.Vendedores = vend;
             _vendaService.Inserir(venda);
 
-            int id = _vendaService.GetIdVenda(venda);
+            int id = Connection.GetIdVenda(venda);
 
             // Deserializar JSON
             List<ItensVenda> lista_itens = JsonConvert.DeserializeObject<List<ItensVenda>>(ListaProdutosVenda);
