@@ -1,0 +1,25 @@
+﻿
+@{
+    ViewData["Title"] = "Relatórios";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<button class="btn btn-block btn-lg" type="button" onclick="Vendas('Vendas')">Vendas por período</button>
+<button class="btn btn-block btn-lg" type="button" onclick="Graficos('Grafico')">Gráfico de Vendas</button>
+<button class="btn btn-block btn-lg" type="button" onclick="Comissao('Comissao')">Comissão de Vendedores</button>
+
+<script>
+	function Vendas(action) {
+		window.location.href = "../Relatorio/" + action;
+	}
+
+	function Graficos(action) {
+		window.location.href = "../Relatorio/" + action;
+	}
+
+	function Comissao(action) {
+		window.location.href = "../Relatorio/" + action;
+	}
+</script>
+

@@ -6,17 +6,39 @@ using Microsoft.AspNetCore.Mvc;
 using SistemaVendas.Models.ViewModels;
 using SistemaVendas.Models;
 using SistemaVendas.Servicos;
+using SistemaVendas.Utils;
 
 namespace SistemaVendas.Controllers
 {
     public class VendaController : Controller
     {
+
+        #region Atributos Globais
+
         private readonly VendaService _vendaService;
         private readonly SYSTEM_SALES_DBContext conexao = new SYSTEM_SALES_DBContext();
+
+        #endregion
+
+        #region Construtor
 
         public VendaController(VendaService vendaService) {
             _vendaService = vendaService;
         }
+
+        #endregion
+
+        #region Index
+
+        [HttpGet]
+        public IActionResult Index(){
+            ViewBag.ListaVendas = new Connection().ListaVendas();
+            return View();
+        }
+
+        #endregion
+
+        #region Registrar Venda
 
         [HttpGet]
         public IActionResult Registrar()
@@ -31,14 +53,29 @@ namespace SistemaVendas.Controllers
 
         [HttpPost]
         public IActionResult Registrar(Vendas venda) {
-            if (ModelState.IsValid) {
+            try {
+                if (ModelState.IsValid) {
 
-                venda.Inserir(venda);
-                ViewBag.ListaProdutos = conexao.Produtos.ToList();
-                //return RedirectToAction("Index");
+                    venda.Inserir(venda);
+                    ViewBag.ListaProdutos = conexao.Produtos.ToList();
+                    return RedirectToAction("Index");
+                }
+
+                return View();
+            }catch{
+                return RedirectToAction("Duplicado");
             }
+        }
+
+        #endregion
+
+        #region Registros Duplicados
+
+        public IActionResult Duplicado(){
 
             return View();
         }
+
+        #endregion
     }
 }

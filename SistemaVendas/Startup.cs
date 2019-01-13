@@ -10,6 +10,7 @@ using Microsoft.Extensions.DependencyInjection;
 using SistemaVendas.Servicos;
 using SistemaVendas.Models;
 using Microsoft.EntityFrameworkCore;
+using SistemaVendas.Models.Data;
 
 namespace SistemaVendas {
     public class Startup {
@@ -36,13 +37,15 @@ namespace SistemaVendas {
             services.AddScoped<ProdutoService>();
             services.AddScoped<MedidaService>();
             services.AddScoped<VendaService>();
+            services.AddScoped<SeendingService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env) {
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, SeendingService seendingService) {
             if (env.IsDevelopment()) {
                 app.UseBrowserLink();
                 app.UseDeveloperExceptionPage();
+                seendingService.Seed();
             }
             else {
                 app.UseExceptionHandler("/Home/Error");

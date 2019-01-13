@@ -1,0 +1,59 @@
+﻿
+@model Relatorios
+
+<h2>Vendas por Período</h2>
+
+<br />
+<div class="row">
+	<div class="col-md-4">
+		<form asp-controller="Relatorio" asp-action="Vendas">
+
+			<div class="form-group">
+				<label>Período</label>
+				<input asp-for="DataInicial" type="date" class="form-control" />
+			</div>
+			<div class="form-group">
+				<label>CPF/CNPJ</label>
+				<input asp-for="DataFinal" type="date" class="form-control" />
+			</div>
+			
+
+			<button type="submit" class=" btn btn-block btn-success">Pesquisar</button>
+		</form>
+		<br />
+		<a asp-action="Index">Voltar</a>
+	</div>
+</div>
+
+<br />
+
+<table class="table table-striped table-hover">
+	<thead>
+		<tr class="success">
+
+			<th>Id</th>
+			<th>Data</th>
+			<th>Vendedores</th>
+			<th>Clientes</th>
+			<th>Total</th>
+		</tr>
+	</thead>
+	<tbody>
+		@{
+			try {
+				foreach (var item in (List<Vendas>)ViewBag.ListaVendas) {
+				<tr>
+					<td>@Html.DisplayFor(modelItem => item.Id)</td>
+					<td>@Html.DisplayFor(modelItem => item.Data)</td>
+					<td>@Html.DisplayFor(modelItem => item.Vendedores.Nome)</td>
+					<td>@Html.DisplayFor(modelItem => item.Clientes.Nome)</td>
+					<td>@Html.DisplayFor(modelItem => item.Total)</td>
+				</tr>
+
+					}
+				}
+				catch { }
+			}
+	</tbody>
+</table>
+

@@ -210,6 +210,8 @@ namespace SistemaVendas.Migrations
                         .HasColumnName("data")
                         .HasColumnType("datetime");
 
+                    b.Property<string>("ListaProdutosVenda");
+
                     b.Property<decimal>("Total")
                         .HasColumnName("total")
                         .HasColumnType("decimal(9, 2)");

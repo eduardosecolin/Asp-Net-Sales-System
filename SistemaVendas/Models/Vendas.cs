@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using Newtonsoft.Json;
 using SistemaVendas.Servicos;
 using SistemaVendas.Utils;
+using SistemaVendas.Servicos.Excecoes;
+using System.Linq;
 
 namespace SistemaVendas.Models
 {
@@ -38,15 +40,30 @@ namespace SistemaVendas.Models
 
             // Deserializar JSON
             List<ItensVenda> lista_itens = JsonConvert.DeserializeObject<List<ItensVenda>>(ListaProdutosVenda);
+            List<VendasDetalhes> vd = new List<VendasDetalhes>();
+            var distintos = new HashSet<int>();
+            var duplicado = new HashSet<int>();
             foreach (var item in lista_itens) {
-                VendasDetalhes details = new VendasDetalhes();
-                details.VendaId = id;
-                details.ProdutoId = int.Parse(item.CodigoProduto);
-                details.QtdProdutos = decimal.Parse(item.QtdProduto);
-                details.VlProduto = decimal.Parse(item.ValorUnitario);
-                _vendaService.Inserir(details);
-                //conexao.VendasDetalhes.Add(details);
-                //conexao.SaveChanges();
+                try {
+                    VendasDetalhes details = new VendasDetalhes();
+                    details.VendaId = id;
+                    details.ProdutoId = int.Parse(item.CodigoProduto);
+                    details.QtdProdutos = decimal.Parse(item.QtdProduto);
+                    details.VlProduto = decimal.Parse(item.ValorUnitario);
+                    
+                    vd.Add(details);
+
+                    var dup = vd.GroupBy(x => x.ProdutoId).Where(x => x.Count() > 1).Select(x => x.Key);
+                    if (dup.Count() != 0) {
+                        throw new Exception();
+                    }else{
+                        _vendaService.Inserir(details);
+                    }
+
+                }
+                catch(Exception){
+                    throw;
+                }
             }
         }
 

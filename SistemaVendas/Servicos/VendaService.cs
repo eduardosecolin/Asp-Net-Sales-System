@@ -33,7 +33,7 @@ namespace SistemaVendas.Servicos {
         }
 
         // Listar um registro pelo id
-        public Vendas FindPerId(int? id){
+        public Vendas FindPerId(int? id) {
             return conexao.Vendas.Include(x => x.Clientes).Include(x => x.Vendedores).FirstOrDefault(x => x.Id == id);
         }
 
@@ -82,6 +82,17 @@ namespace SistemaVendas.Servicos {
 
         public void Inserir(VendasDetalhes detalhes) {
             conexao.Database.ExecuteSqlCommand($"INSERT INTO VENDAS_DETALHES(Venda_id, Produto_id, qtd_produtos, vl_produto) VALUES ({detalhes.VendaId}, {detalhes.ProdutoId}, {detalhes.QtdProdutos}, {detalhes.VlProduto})");
+        }
+
+        public int GetIdVenda(Vendas venda) {
+            int id = 0;
+            try {
+                var result = conexao.Vendas.FromSql($"SELECT id FROM VENDAS WHERE data = '{DateTime.Parse(venda.Data.ToShortDateString())}' AND Clientes_id = {venda.ClientesId} AND Vendedores_id = {venda.VendedoresId}").FirstOrDefault();
+
+                return id = result.Id;
+            }catch(Exception ex){
+                throw ex;
+            }
         }
 
         #endregion

@@ -13,19 +13,26 @@ using SistemaVendas.Models;
 namespace SistemaVendas.Utils {
     public class Connection {
 
-        public static SqlConnection GetConnection() {
-            string connection = @"Server=.\SQLEXPRESS;Database=SYSTEM_SALES_DB;Trusted_Connection=True;Integrated Security=False;User ID=sa;Password=pa$$w0rd3";
+
+        #region GetConnection
+
+        public SqlConnection GetConnection() {
+            string connection = @"Server=.\SQLEXPRESS;Database=SYSTEM_SALES_DB;Trusted_Connection=True;Integrated Security=SSPI;";
 
             SqlConnection con = new SqlConnection(connection);
             return con;
         }
+
+        #endregion
+
+        #region Pegar Id Venda
 
         public static int GetIdVenda(Vendas venda) {
            
             string sql = $"SELECT id FROM VENDAS WHERE data = '{DateTime.Parse(venda.Data.ToShortDateString())}' AND Clientes_id = {venda.ClientesId} AND Vendedores_id = {venda.VendedoresId}";
             int id = 0;
             try {
-                string connection = @"Server=.\SQLEXPRESS;Database=SYSTEM_SALES_DB;Trusted_Connection=True;Integrated Security=False;User ID=sa;Password=pa$$w0rd3";
+                string connection = @"Server=.\SQLEXPRESS;Database=SYSTEM_SALES_DB;Trusted_Connection=True";
 
                 SqlConnection con = new SqlConnection(connection);
                 //GetConnection().Open();
@@ -45,5 +52,71 @@ namespace SistemaVendas.Utils {
             }
 
         }
+
+        #endregion
+
+        #region Lista de Vendas
+
+        public List<Vendas> ListaVendas(){
+            
+            return RetornaListaVendas("1900/01/01","2200/01/01");
+        }
+
+        public List<Vendas> ListaVendas(string dataInicial, string dataFinal) {
+
+            return RetornaListaVendas(dataInicial, dataFinal);
+        }
+
+        private List<Vendas> RetornaListaVendas(string dataInicial, string dataFinal) {
+            List<Vendas> listaVendas = new List<Vendas>();
+            string sql =  "SELECT "                   +
+                              "v.id, "                +
+                              "v.data, "              +
+                              "v.total, "             +
+                              "vd.nome as Vendedor, " +
+                              "c.nome as Cliente "    +
+                            "FROM "     +
+                              "VENDAS v "                                              +
+                              "INNER JOIN VENDEDORES vd on (v.Vendedores_id = vd.id) " +
+                              "INNER JOIN CLIENTES c on (v.Clientes_id = c.id) "       +
+                            "WHERE "    +
+                             $"v.data >= '{dataInicial}' "   +
+                             $"AND v.data <= '{dataFinal}' " +
+                            "ORDER BY " +
+                              "data, "  +
+                              "total";
+
+            try {
+                string connection = @"Server=.\SQLEXPRESS;Database=SYSTEM_SALES_DB;Trusted_Connection=True;Integrated Security=SSPI;";
+                using (SqlConnection con = new SqlConnection(connection)) {
+
+                    con.Open();
+                    SqlCommand cmd = new SqlCommand(sql, con);
+                    SqlDataReader reader = cmd.ExecuteReader();
+
+                    while (reader.Read()) {
+                        Vendas item = new Vendas();
+                        item.Clientes = new Clientes();
+                        item.Vendedores = new Vendedores();
+                        item.Id = Convert.ToInt16(reader["id"]);
+                        item.Data = Convert.ToDateTime(reader["data"]);
+                        item.Total = Convert.ToDecimal(reader["total"]);
+                        item.Clientes.Nome = reader["Cliente"].ToString();
+                        item.Vendedores.Nome = reader["Vendedor"].ToString();
+                        listaVendas.Add(item);
+                    }
+                }
+
+
+                return listaVendas;
+            }
+            catch (Exception ex) {
+
+                string msg = ex.Message;
+                throw;
+            }
+        }
+
+        #endregion
     }
 }

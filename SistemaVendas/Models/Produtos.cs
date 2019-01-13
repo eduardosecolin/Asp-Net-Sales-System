@@ -30,6 +30,7 @@ namespace SistemaVendas.Models {
         public Medidas UnidadeMedida { get; set; }
         public int MedidasId { get; set; }
 
+        [StringLength(1000)]
         public string LinkFoto { get; set; }
 
         #endregion
