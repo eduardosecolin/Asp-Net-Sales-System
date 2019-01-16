@@ -10,12 +10,16 @@ namespace SistemaVendas.Models
 {
     public partial class Vendas
     {
+
+        #region Atributos Globais
+
         private readonly SYSTEM_SALES_DBContext conexao = new SYSTEM_SALES_DBContext();
         private VendaService _vendaService;
 
+        #endregion
 
+        #region Atributos e campos de entidades
 
-      
         public int Id { get; set; }
         public DateTime Data { get; set; }
         public decimal Total { get; set; }
@@ -26,6 +30,10 @@ namespace SistemaVendas.Models
         public virtual Vendedores Vendedores { get; set; }
 
         public virtual string ListaProdutosVenda { get; set; }
+
+        #endregion
+
+        #region Metodos
 
         public void Inserir(Vendas venda) {
             _vendaService = new VendaService(conexao);
@@ -58,6 +66,7 @@ namespace SistemaVendas.Models
                         throw new Exception();
                     }else{
                         _vendaService.Inserir(details);
+                        Connection.UpdateQtdVendas(details.QtdProdutos, details.ProdutoId);
                     }
 
                 }
@@ -66,6 +75,8 @@ namespace SistemaVendas.Models
                 }
             }
         }
+
+        #endregion
 
     }
 }

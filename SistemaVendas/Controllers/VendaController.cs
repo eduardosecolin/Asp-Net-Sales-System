@@ -7,11 +7,18 @@ using SistemaVendas.Models.ViewModels;
 using SistemaVendas.Models;
 using SistemaVendas.Servicos;
 using SistemaVendas.Utils;
+using Microsoft.AspNetCore.Http;
 
 namespace SistemaVendas.Controllers
 {
     public class VendaController : Controller
     {
+
+        #region Atributos
+
+        private IHttpContextAccessor httpContext;
+
+        #endregion
 
         #region Atributos Globais
 
@@ -22,8 +29,9 @@ namespace SistemaVendas.Controllers
 
         #region Construtor
 
-        public VendaController(VendaService vendaService) {
+        public VendaController(VendaService vendaService, IHttpContextAccessor httpContextAccessor) {
             _vendaService = vendaService;
+            httpContext = httpContextAccessor;
         }
 
         #endregion
@@ -55,7 +63,7 @@ namespace SistemaVendas.Controllers
         public IActionResult Registrar(Vendas venda) {
             try {
                 if (ModelState.IsValid) {
-
+                    venda.VendedoresId = Convert.ToInt32(httpContext.HttpContext.Session.GetString("IdUsuarioLogado"));
                     venda.Inserir(venda);
                     ViewBag.ListaProdutos = conexao.Produtos.ToList();
                     return RedirectToAction("Index");

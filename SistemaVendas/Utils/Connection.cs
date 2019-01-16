@@ -13,7 +13,6 @@ using SistemaVendas.Models;
 namespace SistemaVendas.Utils {
     public class Connection {
 
-
         #region GetConnection
 
         public SqlConnection GetConnection() {
@@ -118,5 +117,68 @@ namespace SistemaVendas.Utils {
         }
 
         #endregion
+
+        #region Listar Grafico de Vendas
+
+        public List<GraficoVendas> ListaGrafico(){
+
+            string sql = @"select sum(vd.qtd_produtos) as qtd, p.nome as produto
+                            from VENDAS_DETALHES vd
+                            inner join PRODUTOS p on vd.Produto_id = p.id 
+                            group by 
+                            p.nome";
+
+            List<GraficoVendas> listaGV = new List<GraficoVendas>();
+            try {
+                string connection = @"Server=.\SQLEXPRESS;Database=SYSTEM_SALES_DB;Trusted_Connection=True;Integrated Security=SSPI;";
+                using (SqlConnection con = new SqlConnection(connection)) {
+
+                    con.Open();
+                    SqlCommand cmd = new SqlCommand(sql, con);
+                    SqlDataReader reader = cmd.ExecuteReader();
+
+                    
+                    GraficoVendas item;
+                    while (reader.Read()) {
+                         item = new GraficoVendas();
+                        item.QtdVendido = Convert.ToDecimal(reader["qtd"]);
+                        item.DescricaoProduto = reader["produto"].ToString();
+                        listaGV.Add(item);
+                    }
+                }
+
+
+                return listaGV;
+            }
+            catch (Exception ex) {
+
+                string msg = ex.Message;
+                throw;
+            }
+
+        }
+
+        #endregion
+
+        #region Update Quantidade de produtos
+
+        public static void UpdateQtdVendas(decimal qtd, int id){
+            var sql = $" UPDATE PRODUTOS SET quantidade = (quantidade - {qtd})" +
+                                  $" WHERE id = {id}";
+
+            try {
+                string connection = @"Server=.\SQLEXPRESS;Database=SYSTEM_SALES_DB;Trusted_Connection=True;Integrated Security=SSPI;";
+                using (SqlConnection con = new SqlConnection(connection)) {
+                    con.Open();
+                    SqlCommand cmd = new SqlCommand(sql, con);
+                    cmd.ExecuteNonQuery();
+                }
+            }catch(Exception){
+                throw;
+            }
+        }
+
+        #endregion
+
     }
 }
